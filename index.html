@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5a0a0c">
+<title>红船文创 · 初心印记 | 红船文创团队</title>
+<meta name="description" content="以红船精神为内核的红色文化创意产品介绍。">
+<!-- 社交分享预览（可选）：把 your-domain 换成上线后的域名 -->
+<meta property="og:title" content="红船文创 · 初心印记">
+<meta property="og:description" content="以红船精神为内核，把红色文化做成可触摸、可传播的文创产品。">
+<meta property="og:image" content="assets/cover.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --red-deep:#43070a;
+    --red:#8c1418;
+    --red-bright:#c22a2f;
+    --gold:#e3c184;
+    --gold-dim:#b8934f;
+    --ink:#f8ede4;
+    --muted:rgba(248,237,228,.66);
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{margin:0;padding:0;}
+
+  body{
+    min-height:100vh;
+    color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Source Han Sans SC","Noto Sans SC",sans-serif;
+    background:
+      radial-gradient(120% 70% at 50% -10%, #b22026 0%, #8a1317 34%, #5d0b0e 62%, #3a0507 100%);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* 底纹：细网格 + 柔光，避免大面积纯色 */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(227,193,132,.038) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(227,193,132,.038) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(70% 55% at 50% 30%, #000 0%, transparent 100%);
+    -webkit-mask-image:radial-gradient(70% 55% at 50% 30%, #000 0%, transparent 100%);
+    pointer-events:none;
+  }
+
+  body::after{
+    content:"";
+    position:fixed;
+    width:70vmax;height:70vmax;
+    right:-28vmax;top:-30vmax;
+    background:radial-gradient(circle, rgba(255,190,120,.16) 0%, transparent 62%);
+    pointer-events:none;
+  }
+
+  .wrap{
+    position:relative;
+    max-width:720px;
+    margin:0 auto;
+    padding:26px 22px calc(40px + env(safe-area-inset-bottom));
+  }
+
+  /* ---------- 顶部标识 ---------- */
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-size:12px;letter-spacing:.28em;
+    color:var(--gold);
+    opacity:.9;
+  }
+  .brand svg{width:26px;height:26px;flex:none;}
+
+  /* ---------- 主标题区 ---------- */
+  .hero{margin-top:26px;}
+
+  .eyebrow{
+    margin:0 0 12px;
+    font-size:12px;letter-spacing:.34em;
+    color:rgba(227,193,132,.86);
+  }
+
+  h1{
+    margin:0;
+    font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+    font-size:clamp(30px, 8.6vw, 46px);
+    font-weight:700;
+    line-height:1.28;
+    letter-spacing:.03em;
+    text-shadow:0 2px 24px rgba(0,0,0,.35);
+  }
+
+  .team{
+    display:flex;align-items:center;gap:14px;
+    margin:18px 0 0;
+    font-size:13.5px;letter-spacing:.22em;
+    color:var(--gold);
+  }
+  .team .rule{
+    height:1px;flex:1;
+    background:linear-gradient(90deg, transparent, rgba(227,193,132,.55), transparent);
+  }
+
+  .lede{
+    margin:20px 0 0;
+    max-width:34em;
+    font-size:14.5px;line-height:1.9;
+    color:var(--muted);
+  }
+
+  .chips{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin:22px 0 0;padding:0;list-style:none;
+  }
+  .chips li{
+    padding:5px 12px;
+    font-size:11.5px;letter-spacing:.14em;
+    color:rgba(227,193,132,.9);
+    border:1px solid rgba(227,193,132,.28);
+    border-radius:999px;
+    background:rgba(255,255,255,.03);
+  }
+
+  /* ---------- 视频卡片 ---------- */
+  .video-card{
+    margin-top:34px;
+    padding:16px 16px 18px;
+    border-radius:18px;
+    border:1px solid rgba(227,193,132,.22);
+    background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+    box-shadow:0 24px 60px -28px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.06);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+
+  .video-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin:2px 2px 12px;
+  }
+  .video-head h2{
+    margin:0;
+    font-size:15px;font-weight:600;letter-spacing:.18em;
+    color:var(--ink);
+  }
+  .video-head span{
+    font-size:11px;letter-spacing:.2em;
+    color:rgba(227,193,132,.7);
+  }
+
+  .player{
+    position:relative;
+    aspect-ratio:16/9;
+    border-radius:12px;
+    overflow:hidden;
+    background:#2a0507;
+    isolation:isolate;
+  }
+
+  .player .poster,
+  .player video,
+  .player iframe{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    display:block;border:0;
+    object-fit:cover;
+    background:#2a0507;
+  }
+
+  .player .veil{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(60% 60% at 50% 50%, rgba(0,0,0,.12), rgba(0,0,0,.42));
+    transition:opacity .28s ease;
+  }
+  .player.is-playing .veil{opacity:0;pointer-events:none;}
+
+  .play{
+    width:66px;height:66px;
+    display:grid;place-items:center;
+    border-radius:50%;
+    border:1px solid rgba(227,193,132,.75);
+    background:rgba(70,6,8,.55);
+    color:var(--gold);
+    cursor:pointer;
+    transition:transform .2s ease, background .2s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .play:hover{transform:scale(1.06);background:rgba(120,12,15,.7);}
+  .play svg{width:22px;height:22px;margin-left:3px;}
+
+  .note{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:10px 14px;
+    font-size:12px;line-height:1.6;
+    color:#ffe9d2;
+    background:linear-gradient(0deg, rgba(30,3,4,.92), rgba(30,3,4,0));
+    transform:translateY(110%);
+    transition:transform .3s ease;
+  }
+  .note.show{transform:translateY(0);}
+
+  .video-meta{
+    margin:13px 4px 0;
+    font-size:11.5px;line-height:1.75;letter-spacing:.03em;
+    color:rgba(248,237,228,.5);
+  }
+  .video-meta span{display:block;}
+  .video-meta a{
+    margin-left:2px;
+    color:rgba(227,193,132,.88);
+    text-decoration:none;
+    border-bottom:1px solid rgba(227,193,132,.3);
+  }
+  .video-meta a:hover{border-bottom-color:rgba(227,193,132,.7);}
+
+  /* ---------- 页脚 ---------- */
+  .foot{
+    margin-top:30px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    font-size:11.5px;letter-spacing:.16em;
+    color:rgba(248,237,228,.42);
+  }
+  .foot .dot{color:var(--gold-dim);}
+
+  /* ---------- 入场动效 ---------- */
+  @keyframes rise{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .brand,.hero>*,.video-card,.foot{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;}
+  .hero .eyebrow{animation-delay:.05s;}
+  .hero h1{animation-delay:.12s;}
+  .hero .team{animation-delay:.2s;}
+  .hero .lede{animation-delay:.26s;}
+  .hero .chips{animation-delay:.32s;}
+  .video-card{animation-delay:.4s;}
+
+  @media (prefers-reduced-motion:reduce){
+    .brand,.hero>*,.video-card,.foot{animation:none;}
+  }
+
+  @media (max-width:380px){
+    .wrap{padding-left:18px;padding-right:18px;}
+    .play{width:58px;height:58px;}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="brand">
+    <!-- 红船标识 -->
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <path d="M8 38h48l-5 11H13L8 38Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M21 38V24h22v14" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M27 24v-7h10v7" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M15 53h34" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+    </svg>
+    <span>红色文创 · 红船文化</span>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">红色文化创意产品</p>
+
+    <!-- ▼▼ 修改这里：项目名称 ▼▼ -->
+    <h1>红船文创 · 初心印记</h1>
+
+    <!-- ▼▼ 修改这里：团队名称 ▼▼ -->
+    <p class="team">
+      <span class="rule"></span>
+      <span>红船文创团队</span>
+      <span class="rule"></span>
+    </p>
+
+    <!-- ▼▼ 修改这里：一句话简介 ▼▼ -->
+    <p class="lede">以红船精神为内核，把红色文化做成可触摸、可传播的文创产品。</p>
+
+    <ul class="chips">
+      <li>红船精神</li>
+      <li>文创设计</li>
+      <li>青年表达</li>
+    </ul>
+  </section>
+
+  <section class="video-card">
+    <div class="video-head">
+      <h2>视频介绍</h2>
+      <span>01:31</span>
+    </div>
+
+    <div class="player" id="player">
+      <img class="poster" src="assets/cover.jpg" alt="视频封面">
+      <div class="veil" id="veil">
+        <button class="play" id="playBtn" type="button" aria-label="播放视频">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+        </button>
+      </div>
+      <div class="note" id="note">视频加载失败，可以点下方链接到 B 站观看。</div>
+    </div>
+
+    <p class="video-meta">
+      <span>《中国革命精神之源——红船精神起源与发展》</span>
+      <span>来源：山东卫视 · <a href="https://www.bilibili.com/video/BV1PT4y1P7c7/" target="_blank" rel="noopener">在 B 站观看 ↗</a></span>
+    </p>
+  </section>
+
+  <footer class="foot">
+    <span>扫码进入 <span class="dot">·</span> 红色文创项目</span>
+    <span id="year"></span>
+  </footer>
+
+</main>
+
+<script>
+/* ▼▼ 视频配置：默认用 B 站官方播放器 ▼▼
+   想改成自己的 MP4 时，把 type 改成 'local'，并把视频放到 assets/intro.mp4 */
+var VIDEO = {
+  type: 'local',
+  bvid: 'BV1PT4y1P7c7',
+  page: 1,
+  local: 'assets/intro.mp4'
+};
+
+(function () {
+  var player = document.getElementById('player');
+  var note = document.getElementById('note');
+  var playBtn = document.getElementById('playBtn');
+  var veil = document.getElementById('veil');
+  var year = document.getElementById('year');
+  var mounted = false;
+
+  if (year) { year.textContent = new Date().getFullYear(); }
+
+  function showNote(text) {
+    if (text) { note.innerHTML = text; }
+    note.classList.add('show');
+    setTimeout(function () { note.classList.remove('show'); }, 6000);
+  }
+
+  function mountBilibili() {
+    var frame = document.createElement('iframe');
+    frame.src = 'https://player.bilibili.com/player.html?bvid=' + VIDEO.bvid +
+                '&page=' + VIDEO.page + '&high_quality=1&danmaku=0&autoplay=1';
+    frame.setAttribute('allow', 'autoplay; fullscreen; encrypted-media; picture-in-picture');
+    frame.setAttribute('allowfullscreen', 'true');
+    frame.setAttribute('scrolling', 'no');
+    frame.setAttribute('frameborder', '0');
+    player.insertBefore(frame, veil);
+    player.classList.add('is-playing');
+  }
+
+  function mountLocal() {
+    var video = document.createElement('video');
+    video.src = VIDEO.local;
+    video.controls = true;
+    video.playsInline = true;
+    video.autoplay = true;
+    video.setAttribute('playsinline', '');
+    video.addEventListener('error', function () {
+      player.classList.remove('is-playing');
+      showNote('本地视频没找到：把 MP4 文件命名为 <b>intro.mp4</b>，放进 <b>assets</b> 文件夹。');
+    });
+    player.insertBefore(video, veil);
+    player.classList.add('is-playing');
+    var p = video.play();
+    if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+  }
+
+  playBtn.addEventListener('click', function () {
+    if (mounted) { return; }
+    mounted = true;
+    if (VIDEO.type === 'local') { mountLocal(); } else { mountBilibili(); }
+  });
+})();
+</script>
+</body>
+</html>
