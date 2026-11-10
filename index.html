@@ -9,9 +9,9 @@
 <!-- 社交分享预览（可选）：把 your-domain 换成上线后的域名 -->
 <meta property="og:title" content="红船文创 · 初心印记">
 <meta property="og:description" content="以红船精神为内核，把红色文化做成可触摸、可传播的文创产品。">
-<meta property="og:image" content="assets/cover.jpg">
+<meta property="og:image" content="cover.jpg">
 <meta property="og:type" content="website">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
   :root{
     --red-deep:#43070a;
@@ -293,7 +293,7 @@
     </div>
 
     <div class="player" id="player">
-      <img class="poster" src="assets/cover.jpg" alt="视频封面">
+      <img class="poster" src="cover.jpg" alt="视频封面">
       <div class="veil" id="veil">
         <button class="play" id="playBtn" type="button" aria-label="播放视频">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
@@ -317,12 +317,12 @@
 
 <script>
 /* ▼▼ 视频配置：默认用 B 站官方播放器 ▼▼
-   想改成自己的 MP4 时，把 type 改成 'local'，并把视频放到 assets/intro.mp4 */
+   想改成自己的 MP4 时，把 type 改成 'local'，并把视频放到 intro.mp4 */
 var VIDEO = {
   type: 'local',
   bvid: 'BV1PT4y1P7c7',
   page: 1,
-  local: 'assets/intro.mp4'
+  local: 'intro.mp4'
 };
 
 (function () {
